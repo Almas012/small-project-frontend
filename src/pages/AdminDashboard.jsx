@@ -16,7 +16,7 @@ import {
 } from 'react-icons/fa';
 
 const AdminDashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -24,6 +24,12 @@ const AdminDashboard = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
     navigate('/signin');
+  };
+
+  const closeSidebarOnMobile = () => {
+    if (window.innerWidth < 768) {
+      setIsSidebarOpen(false);
+    }
   };
 
   const getPageTitle = () => {
@@ -56,32 +62,32 @@ const AdminDashboard = () => {
         <nav className="flex-1 overflow-y-auto py-4">
           <ul className="space-y-1 px-3">
             <li>
-              <Link to="/admin" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
+              <Link to="/admin" onClick={closeSidebarOnMobile} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
                 <FaChartLine /> Dashboard
               </Link>
             </li>
             <li>
-              <Link to="/admin/bookings" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/bookings' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
+              <Link to="/admin/bookings" onClick={closeSidebarOnMobile} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/bookings' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
                 <FaTicketAlt /> Bookings
               </Link>
             </li>
             <li>
-              <Link to="/admin/buses" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/buses' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
+              <Link to="/admin/buses" onClick={closeSidebarOnMobile} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/buses' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
                 <FaBus /> Buses
               </Link>
             </li>
             <li>
-              <Link to="/admin/routes" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/routes' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
+              <Link to="/admin/routes" onClick={closeSidebarOnMobile} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/routes' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
                 <FaMapMarkedAlt /> Routes
               </Link>
             </li>
             <li>
-              <Link to="/admin/users" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/users' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
+              <Link to="/admin/users" onClick={closeSidebarOnMobile} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/users' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
                 <FaUser /> Users
               </Link>
             </li>
             <li>
-              <Link to="/admin/settings" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/settings' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
+              <Link to="/admin/settings" onClick={closeSidebarOnMobile} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${location.pathname === '/admin/settings' ? 'bg-primary/10 text-primary font-medium' : 'text-slate-600 hover:bg-slate-50'}`}>
                 <FaCog /> Settings
               </Link>
             </li>
