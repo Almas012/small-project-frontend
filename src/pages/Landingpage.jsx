@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaMapMarkerAlt, FaCalendarAlt, FaWifi, FaChair, FaClock, FaShieldAlt, FaStar, FaChevronDown, FaChevronUp, FaTicketAlt } from 'react-icons/fa';
 import FloatingLines from '../components/FloatingLines';
 import busImg from '../assets/bus.png';
+import ScrollToTop from '../components/ScrollToTop';
 
 const FaqSection = () => {
   const [openFaq, setOpenFaq] = useState(null);
@@ -74,6 +75,7 @@ const LandingPage = () => {
 
   return (
     <div className="w-full bg-slate-50">
+      <ScrollToTop />
       {/* Hero Section */}
       <section className="w-full relative min-h-[90vh] flex items-center justify-center bg-slate-900 pt-20 overflow-y-hidden">
 
