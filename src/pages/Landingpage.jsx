@@ -1,16 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSearch, FaMapMarkerAlt, FaCalendarAlt, FaWifi, FaChair, FaClock, FaShieldAlt, FaStar, FaChevronDown, FaChevronUp, FaTicketAlt } from 'react-icons/fa';
 import FloatingLines from '../components/FloatingLines';
 import busImg from '../assets/bus.png';
 
-const LandingPage = () => {
+const FaqSection = () => {
   const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const faqs = [
+    { q: "How do I book a ticket?", a: "Simply enter your departure and destination cities, select a date, and click search. Choose your bus and seat, then proceed to payment." },
+    { q: "Can I cancel my ticket?", a: "Yes, tickets can be cancelled through the 'My Bookings' section. Cancellation charges may apply based on the time of cancellation." },
+    { q: "Is it safe to travel during the night?", a: "Absolutely. Our buses are equipped with GPS tracking and emergency support 24/7." },
+    { q: "Do I need to print my ticket?", a: "No, an m-ticket on your mobile device is sufficient for boarding." }
+  ];
+
+  return (
+    <section className="py-24">
+      <div className="container mx-auto px-4 max-w-3xl">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Frequently Asked Questions</h2>
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => (
+            <div key={idx} className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+              <button
+                onClick={() => toggleFaq(idx)}
+                className="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors"
+              >
+                <span className="font-bold text-slate-800 text-lg">{faq.q}</span>
+                {openFaq === idx ? <FaChevronUp className="text-primary" /> : <FaChevronDown className="text-slate-400" />}
+              </button>
+              <AnimatePresence>
+                {openFaq === idx && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-8 pb-8 text-slate-600 leading-relaxed border-t border-slate-50 pt-4">
+                      {faq.a}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const LandingPage = () => {
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -26,6 +70,8 @@ const LandingPage = () => {
     }
   };
 
+  const enabledWaves = useMemo(() => ["top", "middle", "bottom"], []);
+
   return (
     <div className="w-full bg-slate-50">
       {/* Hero Section */}
@@ -34,7 +80,7 @@ const LandingPage = () => {
        <div className="absolute inset-0 z-0 w-full overflow-hidden">
 
           <FloatingLines 
-            enabledWaves={["top","middle","bottom"]}
+            enabledWaves={enabledWaves}
             lineCount={5}
             lineDistance={5}
             bendRadius={5}
@@ -117,7 +163,7 @@ const LandingPage = () => {
             viewport={{ once: true }}
             className="w-full lg:w-1/2"
           >
-             <img src={busImg} alt="Bus Offers" className="w-full h-auto object-cover rounded-3xl shadow-2xl shadow-blue-900/20" />
+             <img src={busImg} alt="Bus Offers" loading="lazy" className="w-full h-auto object-cover rounded-3xl shadow-2xl shadow-blue-900/20" />
           </motion.div>
 
           {/* Content Side */}
@@ -234,43 +280,7 @@ const LandingPage = () => {
       </section>
 
       {/* FAQs */}
-      <section className="py-24">
-        <div className="container mx-auto px-4 max-w-3xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-12">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-                {[
-                    { q: "How do I book a ticket?", a: "Simply enter your departure and destination cities, select a date, and click search. Choose your bus and seat, then proceed to payment." },
-                    { q: "Can I cancel my ticket?", a: "Yes, tickets can be cancelled through the 'My Bookings' section. Cancellation charges may apply based on the time of cancellation." },
-                    { q: "Is it safe to travel during the night?", a: "Absolutely. Our buses are equipped with GPS tracking and emergency support 24/7." },
-                    { q: "Do I need to print my ticket?", a: "No, an m-ticket on your mobile device is sufficient for boarding." }
-                ].map((faq, idx) => (
-                    <div key={idx} className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                        <button
-                            onClick={() => toggleFaq(idx)}
-                            className="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none hover:bg-slate-50 transition-colors"
-                        >
-                            <span className="font-bold text-slate-800 text-lg">{faq.q}</span>
-                            {openFaq === idx ? <FaChevronUp className="text-primary" /> : <FaChevronDown className="text-slate-400" />}
-                        </button>
-                        <AnimatePresence>
-                            {openFaq === idx && (
-                                <motion.div
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: 'auto', opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }}
-                                    className="overflow-hidden"
-                                >
-                                    <div className="px-8 pb-8 text-slate-600 leading-relaxed border-t border-slate-50 pt-4">
-                                        {faq.a}
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                ))}
-            </div>
-        </div>
-      </section>
+      <FaqSection />
       </div>
     </div>
   );
