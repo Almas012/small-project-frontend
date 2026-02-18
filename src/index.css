@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-main: #0F0F14;
+  --color-bg-section: #14141C;
+  --color-bg-card: #1A1A24;
+
+  --color-borderColorCustom: #2A2A35;
+
+  --color-primary: #7C3AED;
+  --color-primary-hover: #6D28D9;
+  --color-primary-dark: #5B21B6;
+  --color-primary-light: #A78BFA;
+
+  --color-textColorCustom-heading: #FFFFFF;
+  --color-textColorCustom-paragraph: #C4C6D0;
+  --color-textColorCustom-muted: #8B8FA3;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
