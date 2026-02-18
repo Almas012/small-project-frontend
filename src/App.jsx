@@ -11,6 +11,7 @@ import RoutesPage from './pages/Routes'
 import Users from './pages/Users'
 import Settings from './pages/Settings'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('token'); // Replace with actual auth logic
@@ -32,6 +33,7 @@ const Layout = () => {
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <style>{`html, body { width: 100%; overflow-x: hidden; }`}</style>
       <Routes>
         <Route element={<Layout />}>

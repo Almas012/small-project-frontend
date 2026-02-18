@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { 
@@ -19,6 +19,7 @@ const AdminDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
   const location = useLocation();
   const navigate = useNavigate();
+  const mainContentRef = useRef(null);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -31,6 +32,12 @@ const AdminDashboard = () => {
       setIsSidebarOpen(false);
     }
   };
+
+  useEffect(() => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTop = 0;
+    }
+  }, [location.pathname]);
 
   const getPageTitle = () => {
     switch (location.pathname) {
@@ -102,7 +109,7 @@ const AdminDashboard = () => {
       </motion.aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-8 w-full">
+      <main ref={mainContentRef} className="flex-1 overflow-y-auto p-4 md:p-8 w-full">
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-4">
